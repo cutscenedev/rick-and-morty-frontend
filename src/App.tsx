@@ -1,12 +1,11 @@
 import { useLayoutEffect } from 'react';
 
-
-import './App.css';
-
 import DependencyContainer from './DependencyContainer'
 import { DependencyContextProvider } from './view/contexts/dependecyContext';
 import Router from './view/router/Router';
 import AppInitGuard from './view/components/AppInitGuard';
+
+import './App.css';
 
 function App() {
   const dependencyContainer = new DependencyContainer()
@@ -16,13 +15,11 @@ function App() {
   }, []);
 
   return (
-    <div id="app">
-      <DependencyContextProvider value={dependencyContainer}>
-        <AppInitGuard>
-          <Router />
-        </AppInitGuard>
-      </DependencyContextProvider>
-    </div>
+    <DependencyContextProvider value={dependencyContainer}>
+      <AppInitGuard>
+        <Router />
+      </AppInitGuard>
+    </DependencyContextProvider>
   );
 }
 

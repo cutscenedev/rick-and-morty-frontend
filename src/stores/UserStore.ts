@@ -6,12 +6,13 @@ class UserStore {
   user: null | User = null
 
   loginInProgress = false;
+  userUpdating = false;
 
   get loggedIn() {
     return Boolean(this.user);
   }
 
-  constructor(readonly userProvider: UserProvider) {
+  constructor(private readonly userProvider: UserProvider) {
     makeAutoObservable(this)
   }
 
@@ -31,6 +32,29 @@ class UserStore {
     localStorage.removeItem(this.getSavedUserStorageKey());
   }
 
+  async setNewFavoriteCharacters(newFavoriteCharacters: string[]) {
+    if (this.userUpdating) return;
+
+    if (this.user) {
+      try {
+        this.userUpdating = true;
+        const newUser = await this.userProvider.updateFavoriteCharacters(
+          this.user.userName,
+          newFavoriteCharacters,
+        );
+
+        runInAction(() => {
+          this.user = newUser;
+          this.userUpdating = false;
+          })
+      } catch(err) {
+        this.userUpdating = false;
+
+        throw err;
+      }
+    }
+  }
+
   logout() {
     this.removeSavedUsername();
 
@@ -38,6 +62,8 @@ class UserStore {
   }
 
   async login(userName: string) {
+    if (this.userUpdating) return;
+
     try {
       this.loginInProgress = true;
 
@@ -57,6 +83,8 @@ class UserStore {
   }
 
   async loginFromStorage() {
+    if (this.userUpdating) return;
+
     const userName = this.getSavedUsername();
 
     if (userName) {

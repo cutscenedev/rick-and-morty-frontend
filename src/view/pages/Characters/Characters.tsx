@@ -1,22 +1,57 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
+
+import styles from './Characters.module.css'
+
 import useDependency from '../../hooks/useDependency';
-
-interface Props {
-
-}
+import Button from '../../components/library/Button/Button';
+import useStore from './useStore';
+import CharactersList from './CharactersList/CharactersList';
 
 function Characters() {
   const { userStore } = useDependency();
+  const store = useStore();
 
-  function handleLogoutClick() {
-    userStore.logout();
+  const [favoritesShown, setFavoritesShown] = useState(false);
+
+  function handleShowFavoritesButtonClicked() {
+    setFavoritesShown(!favoritesShown);
   }
 
+  useEffect(() => {
+    store.loadCharacters();
+  }, [store])
+
   return (
-    <div>
-      Characters
-      <button onClick={handleLogoutClick}>logout</button>
+    <div className={styles.root}>
+      <header className={styles.header}>
+        <h3>
+          Hello, {userStore.user?.userName}!
+        </h3>
+        <Button
+          secondary
+          onClick={() => userStore.logout()}
+          >
+          Logout
+        </Button>
+      </header>
+      <main className={styles.main}>
+        <aside className={styles.mainHeader}>
+          <h2>Characters</h2>
+          <Button
+            secondary={!favoritesShown}
+            onClick={handleShowFavoritesButtonClicked}
+          >
+            {favoritesShown
+              ? 'Show all'
+              : 'Show favorites only'
+            }
+          </Button>
+        </aside>
+        {store.characters && (
+          <CharactersList characters={store.characters} favoritesShown={favoritesShown} />
+        )}
+      </main>
     </div>
   )
 };

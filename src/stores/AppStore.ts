@@ -5,7 +5,7 @@ import UserStore from './UserStore';
 class AppStore {
   appInitialized: boolean = false;
 
-  constructor(readonly userStore: UserStore) {
+  constructor(private readonly userStore: UserStore) {
     makeAutoObservable(this)
   }
 

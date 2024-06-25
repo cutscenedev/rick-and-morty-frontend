@@ -1,0 +1,27 @@
+.root {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  padding: 14px 28px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  border-bottom: 1px solid black;
+}
+
+.main {
+  padding: 14px 28px;
+}
+
+.mainHeader {
+  margin-bottom: 48px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}

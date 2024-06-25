@@ -13,6 +13,10 @@ interface Response {
   login: User
 }
 
+interface UpdateFavoriteCharactersResponse {
+  updateFavoriteCharacters: User
+}
+
 class UserProvider {
   constructor(private readonly BackendAPI: BackendAPI) {}
 
@@ -33,6 +37,30 @@ class UserProvider {
 
     return data.data.login
   }
+
+  async updateFavoriteCharacters(
+    userName: string,
+    newFavoriteCharacters: User['userSettings']['favoriteCharacters'],
+  ): Promise<User> {
+    console.log(newFavoriteCharacters);
+    const { data } = await this.BackendAPI.request<AxiosResponse<UpdateFavoriteCharactersResponse>>({
+      url: '/users',
+      data: JSON.stringify({
+        query: `mutation UpdateFavoriteCharacters($userName: String!, $newFavoriteCharacters: [String!]!) {
+          updateFavoriteCharacters(userName: $userName, newFavoriteCharacters: $newFavoriteCharacters) {
+            userName
+            userSettings {
+              favoriteCharacters
+            }
+          }
+        }`,
+        variables: { userName, newFavoriteCharacters }
+      }),
+    })
+
+    return data.data.updateFavoriteCharacters;
+  }
+
 }
 
 export default UserProvider

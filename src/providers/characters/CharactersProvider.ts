@@ -8,8 +8,20 @@ interface Response {
   }
 }
 
-interface Character {
+export interface Character {
+  episode: {
+    name: string,
+    air_date: string
+  }[]
+  gender: string
+  image: string
   name: string
+  origin: {
+    name: string
+    dimension: string
+  }
+  species: string
+  status: string
 }
 
 class CharactersProvider {

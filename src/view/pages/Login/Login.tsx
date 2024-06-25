@@ -1,9 +1,14 @@
-import React, { KeyboardEvent, useState } from 'react'
+import { useState } from 'react'
 import { observer } from 'mobx-react-lite'
+
+import styles from './Login.module.css'
 
 import useDependency from '../../hooks/useDependency'
 import { useNavigate } from 'react-router';
 import { ROUTES } from '../../router/Router';
+
+import Input from '../../components/library/Input/Input';
+import Button from '../../components/library/Button/Button';
 
 function Login() {
   const { userStore } = useDependency();
@@ -11,11 +16,13 @@ function Login() {
 
   const [username, serUsername] = useState('');
 
-  function handleUsernameInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-    serUsername(e.currentTarget.value);
-  }
-
   async function login() {
+    if (username.length < 3) {
+      alert('Username length should be at least 3 symbols');
+
+      return;
+    }
+
     try {
       await userStore.login(username);
 
@@ -25,26 +32,21 @@ function Login() {
     }
   }
 
-  async function handleLoginClick() {
-    await login();
-  }
-
-  async function handleInputKeyPress(e: KeyboardEvent<HTMLInputElement>) {
-    if (e.key === 'Enter') {
-      await login();
-    }
-  }
-
   return (
-    <div className="root">
-      <div className="input-title">Username</div>
-      <input
+    <main className={styles.root}>
+      <h2>Login</h2>
+      <h4>Enter your username:</h4>
+      <Input
+        className={styles.loginInput}
         value={username}
-        onChange={handleUsernameInputChange}
-        onKeyDown={handleInputKeyPress}
+        onChange={serUsername}
+        onEnter={login}
       />
-      <button onClick={handleLoginClick}>Login</button>
-    </div>
+
+      <Button onClick={login}>
+        Enter
+      </Button>
+    </main>
   )
 }
 
