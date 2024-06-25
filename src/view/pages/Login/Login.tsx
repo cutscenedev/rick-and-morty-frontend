@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { KeyboardEvent, useState } from 'react'
 import { observer } from 'mobx-react-lite'
 
 import useDependency from '../../hooks/useDependency'
@@ -15,7 +15,7 @@ function Login() {
     serUsername(e.currentTarget.value);
   }
 
-  async function handleLoginClick() {
+  async function login() {
     try {
       await userStore.login(username);
 
@@ -25,10 +25,24 @@ function Login() {
     }
   }
 
+  async function handleLoginClick() {
+    await login();
+  }
+
+  async function handleInputKeyPress(e: KeyboardEvent<HTMLInputElement>) {
+    if (e.key === 'Enter') {
+      await login();
+    }
+  }
+
   return (
     <div className="root">
       <div className="input-title">Username</div>
-      <input value={username} onChange={handleUsernameInputChange}></input>
+      <input
+        value={username}
+        onChange={handleUsernameInputChange}
+        onKeyDown={handleInputKeyPress}
+      />
       <button onClick={handleLoginClick}>Login</button>
     </div>
   )
