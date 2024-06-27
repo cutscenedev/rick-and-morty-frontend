@@ -25,7 +25,9 @@ export interface Character {
 }
 
 class CharactersProvider {
-  constructor(private readonly BackendAPI: BackendAPI) {}
+  constructor(
+    private readonly BackendAPI: BackendAPI,
+  ) {}
 
   async getCharacters(page = 1): Promise<Character[]> {
     const { data } = await this.BackendAPI.request<AxiosResponse<Response>>({

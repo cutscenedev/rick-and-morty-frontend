@@ -18,7 +18,9 @@ interface UpdateFavoriteCharactersResponse {
 }
 
 class UserProvider {
-  constructor(private readonly BackendAPI: BackendAPI) {}
+  constructor(
+    private readonly BackendAPI: BackendAPI,
+  ) {}
 
   async login(userName: string): Promise<User> {
     const { data } = await this.BackendAPI.request<AxiosResponse<Response>>({

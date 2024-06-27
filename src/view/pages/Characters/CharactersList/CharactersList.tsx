@@ -1,10 +1,10 @@
+import { useState } from 'react';
 import { observer } from 'mobx-react';
 
 import styles from './CharactersList.module.css'
 
 import Character from './Character/Character';
 import { Character as ICharacter } from '../../../../providers/characters/CharactersProvider';
-import { useState } from 'react';
 import useDependency from '../../../hooks/useDependency';
 
 interface Props {

@@ -1,12 +1,12 @@
-import { useLocalObservable } from "mobx-react-lite"
+import { useLocalObservable } from "mobx-react"
 
 import CharactersStore from "./CharactersStore";
 import useDependency from "../../hooks/useDependency";
 
 const useStore = (): CharactersStore => {
-  const { charactersProvider, userStore } = useDependency();
+  const { charactersProvider } = useDependency();
 
-  const store = useLocalObservable(() => new CharactersStore(charactersProvider, userStore));
+  const store = useLocalObservable(() => new CharactersStore(charactersProvider));
 
   return store;
 }

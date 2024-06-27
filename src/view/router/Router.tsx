@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-import { observer } from 'mobx-react-lite'
+import { observer } from 'mobx-react'
 
 import Login from '../pages/Login/Login'
 import Characters from '../pages/Characters/Characters'

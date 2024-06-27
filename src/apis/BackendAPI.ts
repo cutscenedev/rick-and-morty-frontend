@@ -5,7 +5,9 @@ import { Config } from '../config'
 class BackendAPI {
   private readonly client: AxiosInstance
 
-  constructor(private readonly config: Config) {
+  constructor(
+    private readonly config: Config,
+  ) {
     this.client = axios.create({
       baseURL: config.BACKEND_API_URL,
       method: 'POST',

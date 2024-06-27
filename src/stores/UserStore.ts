@@ -12,7 +12,9 @@ class UserStore {
     return Boolean(this.user);
   }
 
-  constructor(private readonly userProvider: UserProvider) {
+  constructor(
+    private readonly userProvider: UserProvider,
+  ) {
     makeAutoObservable(this)
   }
 

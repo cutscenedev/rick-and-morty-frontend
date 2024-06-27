@@ -3,9 +3,11 @@ import { makeAutoObservable } from 'mobx'
 import UserStore from './UserStore';
 
 class AppStore {
-  appInitialized: boolean = false;
+  appInitialized = false;
 
-  constructor(private readonly userStore: UserStore) {
+  constructor(
+    private readonly userStore: UserStore,
+  ) {
     makeAutoObservable(this)
   }
 
