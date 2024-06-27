@@ -42,7 +42,6 @@ class UserProvider {
     userName: string,
     newFavoriteCharacters: User['userSettings']['favoriteCharacters'],
   ): Promise<User> {
-    console.log(newFavoriteCharacters);
     const { data } = await this.BackendAPI.request<AxiosResponse<UpdateFavoriteCharactersResponse>>({
       url: '/users',
       data: JSON.stringify({
