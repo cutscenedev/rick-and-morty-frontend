@@ -21,7 +21,7 @@ function CharacterLatestEpisodes({ episodes, className }: Props) {
   return (
     <div className={[styles.root, className].join(' ')}>
       {threeLatestEpisodes.map(episode => (
-        <div className={styles.episode}>
+        <div className={styles.episode} key={episode.name}>
           {episode.name} [{episode.air_date}]
         </div>
       ))}
