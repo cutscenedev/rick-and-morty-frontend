@@ -10,8 +10,8 @@ function CharacterAttribute({ name, children, className }: Props) {
 
   return (
     <section className={[styles.root, className].join(' ')}>
-      <text className={styles.name}>{name}: </text>
-      <text className={styles.value}>{children}</text>
+      <span className={styles.name}>{name}: </span>
+      <span className={styles.value}>{children}</span>
     </section>
   )
 }
