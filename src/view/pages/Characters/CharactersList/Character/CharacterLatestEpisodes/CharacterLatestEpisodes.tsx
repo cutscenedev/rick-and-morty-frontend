@@ -11,9 +11,9 @@ interface Props {
 function CharacterLatestEpisodes({ episodes, className }: Props) {
   const threeLatestEpisodes = useMemo(() => {
     const sortedEpisodes = episodes
-      .sort((a, b) => new Date(b.air_date).getTime()
+      .toSorted((a, b) => new Date(b.air_date).getTime()
         - new Date(a.air_date).getTime());
-    
+
     return sortedEpisodes.slice(0, 3);
   }, [episodes]);
 
