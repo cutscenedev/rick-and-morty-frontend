@@ -10,6 +10,7 @@ function CharacterImage({ src, size, className }: Props) {
 
   return (
     <img
+      alt=""
       src={src}
       style={{ width: `${size}px`, height: `${size}px` }}
       className={[styles.root, className].join(' ')}

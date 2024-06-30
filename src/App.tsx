@@ -12,7 +12,7 @@ function App() {
 
   useLayoutEffect(() => {
     dependencyContainer.appStore.initApp();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <DependencyContextProvider value={dependencyContainer}>
