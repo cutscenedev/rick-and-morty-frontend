@@ -52,7 +52,7 @@ class UserStore {
       } catch(err) {
         this.userUpdating = false;
 
-        throw err;
+        throw new Error(`Couldn't set new favorite characters`, { cause: err });
       }
     }
   }
@@ -80,7 +80,7 @@ class UserStore {
     } catch(err) {
       this.loginInProgress = false;
 
-      throw err;
+      throw new Error(`Couldn't login`, { cause: err });
     }
   }
 
@@ -103,7 +103,7 @@ class UserStore {
         this.loginInProgress = false;
         this.removeSavedUsername();
 
-        throw err;
+        throw new Error(`Couldn't login`, { cause: err });
       }
     }
   }
